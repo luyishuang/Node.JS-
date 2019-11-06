@@ -44,7 +44,7 @@ http.createServer(function(req,res){
         res.write(htmlContent);
         res.end();
     }
-    else if(pathName == "/getChapterList"){
+    else if(pathName == "/toChapterList"){
         //console.log(typeof chapterList);//object
         var chapterListStr = JSON.stringify(chapterList);
         //console.log(typeof chapterListStr);//string
@@ -84,14 +84,14 @@ http.createServer(function(req,res){
             var passWord = userpwd.password;
             for (var i = 0; i < userList.length;i ++){
                 if(userList[i].username == userName && userList[i].pwd == passWord) {
-                    data = {code: 0};
-                    //console.log(data);//{ code: 0 }  object类型
+                    data = {back:"yes"};
+                    //console.log(data);//{ back:"yes" }  object类型
                     res.writeHead(200, {"Content-Type": "application/json"});
                     res.end(JSON.stringify(data));
                 }
             }
-            data = {code: -1};
-            //console.log(data);//{ code: -1 } object类型
+            data = {back:"no"};
+            //console.log(data);//{ back:"no" } object类型
             res.writeHead(200, {"Content-Type": "application/json"});
             res.end(JSON.stringify(data));
         });
@@ -116,7 +116,7 @@ http.createServer(function(req,res){
                 "views": 999
             };
             chapterList.push(attr);
-            data = {code: 0};
+            data = {back:"yes"};
             var dataStr = JSON.stringify(data);
             res.writeHead(200, {"Content-Type": "application/json"});
             res.write(dataStr);
@@ -130,12 +130,12 @@ http.createServer(function(req,res){
         for (var i = 0; i < chapterList.length; i ++) {
             if (chapterList[i].chapterId == chapterId) {
                 chapterList.splice(i, 1);
-                data = {code: 0};
+                data = {back:"yes"};
                 res.writeHead(200, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify(data));
             }
         }
-        data = {code: -1};
+        data = {back:"no"};
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(data));
     }
@@ -149,23 +149,25 @@ http.createServer(function(req,res){
             }
             else{
                 var suffix = htmlPath.substring(htmlPath.indexOf(".") + 1, htmlPath.length);//根据后缀判断返回类型
-                if(suffix == "css"){
-                    res.writeHead(200, {"Content-Type": "text/css"});
-                }
-                else if(suffix == "js"){
-                    res.writeHead(200, {"Content-Type": "text/javascript"});
-                }
-                else if(suffix == "jpg"){
-                    res.writeHead(200, {"Content-Type": "image/jpeg"});
-                }
-                else if(suffix == "jpeg"){
-                    res.writeHead(200, {"Content-Type": "image/jpeg"});
-                }
-                else if(suffix == "png"){
-                    res.writeHead(200, {"Content-Type": "image/png"});
-                }
-                else{
-                    res.writeHead(200, {"Content-Type": "text/plane;charset=utf-8"});
+                switch (suffix) {
+                    case "css":
+                        res.writeHead(200, {"Content-Type": "text/css"});
+                        break;
+                    case "js":
+                        res.writeHead(200, {"Content-Type": "text/javascript"});
+                        break;
+                    case "jpg":
+                        res.writeHead(200, {"Content-Type": "image/jpeg"});
+                        break;
+                    case "jpeg":
+                        res.writeHead(200, {"Content-Type": "image/jpeg"});
+                        break;
+                    case "png":
+                        res.writeHead(200, {"Content-Type": "image/png"});
+                        break;
+                    default:
+                        res.writeHead(200, {"Content-Type": "text/plane;charset=utf-8"});
+                        break;
                 }
                 res.write(data);
                 res.end();

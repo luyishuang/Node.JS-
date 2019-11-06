@@ -118,7 +118,7 @@
         }
         else{
             $.post("/toLogin",{'username': username, 'password': password},function(data){
-                if(data.code == 0) {
+                if(data.back == "yes") {
                     window.location = "/listmanager";
                 }
                 else{

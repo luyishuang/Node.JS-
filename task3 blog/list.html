@@ -150,7 +150,7 @@
     }
     
     $(document).ready(() => {
-        $.get('/getChapterList',function(data){
+        $.get('/toChapterList',function(data){
             var dataList = JSON.parse(JSON.stringify(data));
             dataList.forEach(function(data, index){
                 var liNode = `<tr>
@@ -165,17 +165,14 @@
     });
 
     $("#result").on("click", ".del_btn", function(){
-        var back = confirm("请问您确认删除吗？");
-        if (back){
             chapterId = $(this).parent().parent().children("td")[0].innerHTML;
             $.get('/deleteChapter?chapterId=' + chapterId, (data) => {
-                if (data.code == 0){
+                if (data.back == "yes"){
                     $(this).parent().parent().remove();
                 }
             });
             alert("删除成功!")
-        }
-    });
+        });
 </script>
 
 </html>
