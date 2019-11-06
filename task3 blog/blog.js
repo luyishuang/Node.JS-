@@ -152,25 +152,36 @@ http.createServer(function(req,res){
                 switch (suffix) {
                     case "css":
                         res.writeHead(200, {"Content-Type": "text/css"});
+                        res.write(data);
+                        res.end();
                         break;
                     case "js":
                         res.writeHead(200, {"Content-Type": "text/javascript"});
+                        res.write(data);
+                        res.end();
                         break;
                     case "jpg":
                         res.writeHead(200, {"Content-Type": "image/jpeg"});
+                        res.write(data);
+                        res.end();
                         break;
                     case "jpeg":
                         res.writeHead(200, {"Content-Type": "image/jpeg"});
+                        res.write(data);
+                        res.end();
                         break;
                     case "png":
                         res.writeHead(200, {"Content-Type": "image/png"});
+                        res.write(data);
+                        res.end();
                         break;
                     default:
                         res.writeHead(200, {"Content-Type": "text/plane;charset=utf-8"});
+                        res.write(data);
+                        res.end();
                         break;
                 }
-                res.write(data);
-                res.end();
+
             }
         })
     }
