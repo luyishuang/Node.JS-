@@ -57,7 +57,7 @@ http.createServer(function(req,res){
         //console.log(urlObj.query);//chapterId= 1
         //console.log(typeof urlObj.query);//string
         var listLi = queryString.parse(urlObj.query);
-        //console.log(typeof listLi);//object
+        //console.log(typeof listLi);//object类型
         //console.log(listLi);//[Object: null prototype] { chapterId: '1' }
         var chapterId = listLi.chapterId;
         chapterList.forEach(function(data, index){
